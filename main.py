@@ -1,0 +1,42 @@
+import telebot
+
+from token_key import token
+import time
+
+bot = telebot.AsyncTeleBot(token)
+
+prohibited_stickers = ("AgADDgADxk5iIA",)
+bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
+good_sticker = "CAACAgIAAxkBAANXYVi_oJqE_JrrKVh1fol8yID6CUgAAnIBAAI0-xcGv6CkXEKqmUQhBA"
+
+
+@bot.message_handler(commands=["start"])
+def start_message(message):
+    bot.send_message(message.chat.id, "Я встал в 8 потому что пара")
+
+
+@bot.message_handler(commands=["what_he_loves_to_suck"])
+def reply_suck(message):
+    bot.send_sticker(message.chat.id, bad_sticker)
+
+
+@bot.message_handler(content_types=["text"])
+def send_text(message):
+    if message.text.lower() == "привет":
+        bot.send_message(message.chat.id, "Всем привет с вами бендер")
+    elif message.text.lower() == "хочу сосать":
+        bot.send_sticker(message.chat.id, bad_sticker)
+    elif message.text.lower() == "пока":
+        bot.send_message(message.chat.id, "Какой же ты еблан")    
+
+
+@bot.message_handler(content_types=["sticker"])
+def send_sticker(message):
+    if message.sticker.file_unique_id in prohibited_stickers:
+        bot.delete_message(message.chat.id, message.message_id)
+        sent_msg = bot.send_sticker(message.chat.id, good_sticker)
+        time.sleep(8)
+        bot.delete_message(sent_msg.result.chat.id, sent_msg.result.message_id)
+
+
+bot.polling()
