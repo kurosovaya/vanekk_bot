@@ -42,11 +42,19 @@ def send_sticker(message):
         bot.delete_message(sent_msg.result.chat.id, sent_msg.result.message_id)
 
 
-@server.route("/")
+@server.route('/' + token, methods=['POST'])
+def get_message():
+    json_string = request.get_data().decode('utf-8')
+    update = telebot.types.Update.de_json(json_string)
+    bot.process_new_updates([update])
+    return "Йух", 200
+
+
+@server.route("/", methods=["GET"])
 def webhook():
     bot.remove_webhook()
     bot.set_webhook("https://vanekk-bot.herokuapp.com/" + token)
-    return "!", 200
+    return "Хуй", 200
 
 
 if __name__ == "__main__":
