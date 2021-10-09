@@ -1,9 +1,12 @@
 import telebot
 
+from flask import Flask, request
 from token_key import token
+import os
 import time
 
 bot = telebot.AsyncTeleBot(token)
+server = Flask(__name__)
 
 prohibited_stickers = ("AgADDgADxk5iIA",)
 bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
@@ -39,4 +42,13 @@ def send_sticker(message):
         bot.delete_message(sent_msg.result.chat.id, sent_msg.result.message_id)
 
 
-bot.polling()
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook("https://vanekk-bot.herokuapp.com/" + token)
+    return "!", 200
+
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
+
