@@ -13,7 +13,10 @@ prohibited_stickers = ("AgADDgADxk5iIA",)
 bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
 good_sticker = "CAACAgIAAxkBAANXYVi_oJqE_JrrKVh1fol8yID6CUgAAnIBAAI0-xcGv6CkXEKqmUQhBA"
 
-with open("/ssd_patrition/negev/Projects/VKParsing/vanekkk_sentences.txt") as f:
+abspath = os.path.abspath(__file__)
+dname = os.path.dirname(abspath)
+os.chdir(dname)
+with open("vanekkk_sentences.txt") as f:
     text = f.read()
 vanekkk_vocabulary = markovify.Text(text)
 
