@@ -33,8 +33,11 @@ def reply_suck(message):
 
 @bot.message_handler(commands=["make_sentence"])
 def make_sentence(message):
-    bot.send_message(message.chat.id, vanekkk_vocabulary.make_sentence())
-
+    txt = None
+    while txt is None:
+        txt = vanekkk_vocabulary.make_sentence()
+    bot.send_message(message.chat.id, txt)
+    
 
 @bot.message_handler(commands=["timoha_spam"])
 def reply_suck(message):
