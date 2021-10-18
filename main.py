@@ -3,6 +3,7 @@ import telebot
 from flask import Flask, request
 import os
 import time
+import markovify
 
 TOKEN = os.environ["TOKEN"]
 bot = telebot.AsyncTeleBot(TOKEN)
@@ -11,6 +12,10 @@ server = Flask(__name__)
 prohibited_stickers = ("AgADDgADxk5iIA",)
 bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
 good_sticker = "CAACAgIAAxkBAANXYVi_oJqE_JrrKVh1fol8yID6CUgAAnIBAAI0-xcGv6CkXEKqmUQhBA"
+
+with open("/ssd_patrition/negev/Projects/VKParsing/vanekkk_sentences.txt") as f:
+    text = f.read()
+vanekkk_vocabulary = markovify.Text(text)
 
 
 @bot.message_handler(commands=["start"])
@@ -21,6 +26,11 @@ def start_message(message):
 @bot.message_handler(commands=["what_he_loves_to_suck"])
 def reply_suck(message):
     bot.send_sticker(message.chat.id, bad_sticker)
+
+
+@bot.message_handler(commands=["make_sentence"])
+def make_sentence(message):
+    bot.send_message(message.chat.id, vanekkk_vocabulary.make_sentence())
 
 
 @bot.message_handler(commands=["timoha_spam"])
