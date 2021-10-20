@@ -45,7 +45,7 @@ def reply_suck(message):
 def make_sentence(message):
     txt = None
     while txt is None:
-        txt = vanekkk_vocabulary.make_sentence()
+        txt = combined_mode.make_sentence()
     bot.send_message(message.chat.id, txt)
 
 
