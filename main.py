@@ -27,7 +27,7 @@ vanekkk_vocabulary = markovify.Text(vanekk_messages)
 fashion_vocabulary = markovify.Text(fashion_phrases)
 shit_vocabulary = markovify.Text(some_shit)
 
-combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary], [2, 1.5, 30])
+combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary], [2, 1.5, 50])
 
 
 @bot.message_handler(commands=["start"])
