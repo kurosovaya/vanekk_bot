@@ -17,8 +17,18 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 with open("vanekkk_sentences.txt") as f:
-    text = f.read()
-vanekkk_vocabulary = markovify.Text(text)
+    vanekk_messages = f.read()
+with open("pretentious_phrases.txt") as f:
+    fashion_phrases = f.read()
+with open("quotes_about_nationalism.txt") as f:
+    some_shit = f.read()
+
+vanekkk_vocabulary = markovify.Text(vanekk_messages)
+fashion_vocabulary = markovify.Text(fashion_phrases)
+shit_vocabulary = markovify.Text(some_shit)
+
+combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary], [1, 1.5, 5])
+combined_mode = combined_mode.compile()
 
 
 @bot.message_handler(commands=["start"])
