@@ -37,7 +37,7 @@ def make_sentence(message):
     while txt is None:
         txt = vanekkk_vocabulary.make_sentence()
     bot.send_message(message.chat.id, txt)
-    
+
 
 @bot.message_handler(commands=["timoha_spam"])
 def reply_suck(message):
