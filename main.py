@@ -22,16 +22,16 @@ with open("pretentious_phrases.txt") as f:
     fashion_phrases = f.read()
 with open("quotes_about_nationalism.txt") as f:
     some_shit = f.read()
-with open("Собачье сердце. Михаил Булгаков.txt") as f:
-    classic = f.read()
+# with open("Собачье сердце. Михаил Булгаков.txt") as f: # выходит полная хуйня
+#     classic = f.read()
 
 vanekkk_vocabulary = markovify.Text(vanekk_messages)
 fashion_vocabulary = markovify.Text(fashion_phrases)
 shit_vocabulary = markovify.Text(some_shit)
-classic_vocabulary = markovify.Text(classic)
+# classic_vocabulary = markovify.Text(classic)
 
-combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary, classic_vocabulary],
-                                  [1, 1, 1.5, 0.7])
+combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary],
+                                  [1, 1, 1.5])
 combined_mode = combined_mode.compile()
 
 
