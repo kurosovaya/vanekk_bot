@@ -17,17 +17,22 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 with open("vanekkk_sentences.txt") as f:
-    vanekk_messages = f.read()
+    vanekk_messages = f.read().lower()
 with open("pretentious_phrases.txt") as f:
-    fashion_phrases = f.read()
+    fashion_phrases = f.read().lower()
 with open("quotes_about_nationalism.txt") as f:
-    some_shit = f.read()
+    some_shit = f.read().lower()
+with open("Собачье сердце. Михаил Булгаков.txt") as f:
+    classic = f.read().lower()
 
 vanekkk_vocabulary = markovify.Text(vanekk_messages)
 fashion_vocabulary = markovify.Text(fashion_phrases)
 shit_vocabulary = markovify.Text(some_shit)
+classic_vocabulary = markovify.Text(classic)
 
-combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary], [2, 1.5, 50])
+combined_mode = markovify.combine([vanekkk_vocabulary, fashion_vocabulary, shit_vocabulary, classic_vocabulary],
+                                  [1, 1, 1.5, 0.7])
+combined_mode = combined_mode.compile()
 
 
 @bot.message_handler(commands=["start"])
@@ -44,7 +49,7 @@ def reply_suck(message):
 def make_sentence(message):
     txt = None
     while txt is None:
-        txt = combined_mode.make_sentence()
+        txt = combined_mode.make_sentence(test_output=False)
     bot.send_message(message.chat.id, txt)
 
 
