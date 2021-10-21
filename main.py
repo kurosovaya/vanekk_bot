@@ -49,7 +49,7 @@ def reply_suck(message):
 def make_sentence(message):
     txt = None
     while txt is None:
-        txt = combined_mode.make_sentence(test_output=False)
+        txt = combined_mode.make_short_sentence(1000, 20, test_output=False)
     bot.send_message(message.chat.id, txt)
 
 
