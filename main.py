@@ -17,13 +17,13 @@ abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
 os.chdir(dname)
 with open("vanekkk_sentences.txt") as f:
-    vanekk_messages = f.read().lower()
+    vanekk_messages = f.read()
 with open("pretentious_phrases.txt") as f:
-    fashion_phrases = f.read().lower()
+    fashion_phrases = f.read()
 with open("quotes_about_nationalism.txt") as f:
-    some_shit = f.read().lower()
+    some_shit = f.read()
 with open("Собачье сердце. Михаил Булгаков.txt") as f:
-    classic = f.read().lower()
+    classic = f.read()
 
 vanekkk_vocabulary = markovify.Text(vanekk_messages)
 fashion_vocabulary = markovify.Text(fashion_phrases)
