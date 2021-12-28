@@ -86,11 +86,6 @@ def find_timofey(message):
     geo_search_active = False
 
 
-@bot.message_handler(commands=["attach_fsb_dump"])
-def find_timofey(message):
-    bot.send_message(message.chat.id, "Подключаю базы данных ФСБ")
-
-
 @bot.message_handler(content_types=["text"])
 def send_text(message):
     if message.text.lower() == "привет":
