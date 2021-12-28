@@ -77,13 +77,18 @@ def find_timofey(message):
     bot.send_message(message.chat.id, "Производится поиск по запросу 'Тимофей Сафронов'")
 
     for i in range(100):
-        time.sleep(random.randint(10, 30))
+        time.sleep(random.randint(5, 15))
         if i < 10 or i % 5 == 0:
             bot.send_message(message.chat.id, f"{i}%")
 
     bot.send_message(message.chat.id, "ПИДОРАС НАЙДЕН: https://www.google.ru/maps/place/%D0%A8%D0%B0%D1%83%D1%80%D0%BC%D0%B0+Tbilisuri/@50.3987878,30.5297598,17.75z/data=!4m5!3m4!1s0x40d4cf92829a0ed3:0xc03f3131bc668a15!8m2!3d50.3988509!4d30.530498")
 
     geo_search_active = False
+
+
+@bot.message_handler(commands=["attach_fsb_dump"])
+def find_timofey(message):
+    bot.send_message(message.chat.id, "Подключаю базы данных ФСБ")
 
 
 @bot.message_handler(content_types=["text"])
