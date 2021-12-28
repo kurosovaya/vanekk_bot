@@ -4,6 +4,7 @@ from flask import Flask, request
 import os
 import time
 import markovify
+import random
 
 TOKEN = os.environ["TOKEN"]
 bot = telebot.AsyncTeleBot(TOKEN)
@@ -12,6 +13,7 @@ server = Flask(__name__)
 prohibited_stickers = ("AgADDgADxk5iIA",)
 bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
 good_sticker = "CAACAgIAAxkBAANXYVi_oJqE_JrrKVh1fol8yID6CUgAAnIBAAI0-xcGv6CkXEKqmUQhBA"
+geo_search_active = False
 
 abspath = os.path.abspath(__file__)
 dname = os.path.dirname(abspath)
@@ -59,6 +61,29 @@ def reply_suck(message):
         bot.send_message(message.chat.id, "Жэка гей")
         time.sleep(1)
 
+
+@bot.message_handler(commands=["find_timofey"])
+def find_timofey(message):
+    global geo_search_active
+
+    if geo_search_active:
+        bot.reply_to(message.chat.id, "Я уже ищу Тимоху, долбаёб")
+        return
+    geo_search_active = True
+    bot.send_message(message.chat.id, "ПОДКЛЮЧАЮ МОДУЛЬ ГЕОЛОКАЦИИ")
+    time.sleep(1)
+    bot.send_message(message.chat.id, "Система поиска пидарасов активированна")
+    time.sleep(3)
+    bot.send_message(message.chat.id, "Производится поиск по запросу 'Тимофей Сафронов'")
+
+    for i in range(100):
+        time.sleep(random.randint(10, 30))
+        bot.send_message(message.chat.id, f"{i}%")
+
+    bot.send_message(message.chat.id, "ПИДОРАС НАЙДЕН: https://www.google.ru/maps/place/%D0%A8%D0%B0%D1%83%D1%80%D0%BC%D0%B0+Tbilisuri/@50.3987878,30.5297598,17.75z/data=!4m5!3m4!1s0x40d4cf92829a0ed3:0xc03f3131bc668a15!8m2!3d50.3988509!4d30.530498")
+
+    geo_search_active = False
+    
 
 @bot.message_handler(content_types=["text"])
 def send_text(message):
