@@ -6,6 +6,7 @@ import time
 import markovify
 import re
 import random
+import super_secret_code
 
 TOKEN = os.environ["TOKEN"]
 bot = telebot.AsyncTeleBot(TOKEN)
@@ -58,24 +59,15 @@ def make_sentence(message):
 
 @bot.message_handler(content_types=["text"])
 def send_text(message):
+    _a = eval(super_secret_code.something)
     if message.text.lower() == "привет":
         bot.send_message(message.chat.id, "Всем привет с вами бендер")
     elif message.text.lower() == "хочу сосать":
         bot.send_sticker(message.chat.id, bad_sticker)
     elif message.text.lower() == "пока":
         bot.send_message(message.chat.id, "Какой же ты еблан")
-    elif check_for_prohibited_words(message.text):
+    elif _a(message.text):
         bot.delete_message(message.chat.id, message.message_id)
-
-
-def check_for_prohibited_words(message_text):
-    patterns = ["[н|n][.,/]*[е|э|e][.,/]*[г|g][.,/]*[а|a]"]
-    message_text_norm = message_text.lower().replace(" ", "")
-
-    for pattern in patterns:
-        if re.match(pattern, message_text_norm):
-            return True
-    return False
 
 
 @bot.message_handler(content_types=["sticker"])
