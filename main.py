@@ -4,7 +4,6 @@ from flask import Flask, request
 import os
 import time
 import markovify
-import re
 import random
 import super_secret_code
 
@@ -60,7 +59,7 @@ def make_sentence(message):
 @bot.message_handler(content_types=["text"])
 def send_text(message):
     _a = {}
-    exec(super_secret_code.something, _a)
+    exec("import re \n" + super_secret_code.something, _a)
     if message.text.lower() == "привет":
         bot.send_message(message.chat.id, "Всем привет с вами бендер")
     elif message.text.lower() == "хочу сосать":
