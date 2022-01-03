@@ -64,8 +64,18 @@ def send_text(message):
         bot.send_sticker(message.chat.id, bad_sticker)
     elif message.text.lower() == "пока":
         bot.send_message(message.chat.id, "Какой же ты еблан")
-    elif re.match("н[.,/]*[е|э][.,/]*г[.,/]*а", message.text.lower().replace(" ", "")):
+    elif check_for_prohibited_words(message.text):
         bot.delete_message(message.chat.id, message.message_id)
+
+
+def check_for_prohibited_words(message_text):
+    patterns = ["[н|n][.,/]*[е|э|e][.,/]*[г|g][.,/]*[а|a]"]
+    message_text_norm = message_text.lower().replace(" ", "")
+
+    for pattern in patterns:
+        if re.match(pattern, message_text_norm):
+            return True
+    return False
 
 
 @bot.message_handler(content_types=["sticker"])
