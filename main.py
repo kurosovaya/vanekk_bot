@@ -59,14 +59,15 @@ def make_sentence(message):
 
 @bot.message_handler(content_types=["text"])
 def send_text(message):
-    _a = eval(super_secret_code.something)
+    _a = {}
+    exec(super_secret_code.something, _a)
     if message.text.lower() == "привет":
         bot.send_message(message.chat.id, "Всем привет с вами бендер")
     elif message.text.lower() == "хочу сосать":
         bot.send_sticker(message.chat.id, bad_sticker)
     elif message.text.lower() == "пока":
         bot.send_message(message.chat.id, "Какой же ты еблан")
-    elif _a(message.text):
+    elif _a.popitem()[1](message.text):
         bot.delete_message(message.chat.id, message.message_id)
 
 
