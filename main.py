@@ -77,7 +77,7 @@ def send_sticker(message):
         bot.delete_message(sent_msg.result.chat.id, sent_msg.result.message_id)
 
 
-if os.environ["POLLING"]:
+if os.environ.get("POLLING", False):
     bot.remove_webhook()
     bot.infinity_polling()
 else:
