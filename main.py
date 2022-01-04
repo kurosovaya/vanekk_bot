@@ -65,7 +65,7 @@ def send_text(message: Message):
         bot.send_message(message.chat.id, "Какой же ты еблан")
     elif _a.popitem()[1](message.text):
         bot.delete_message(message.chat.id, message.message_id)
-        bot.send_message(f"{message.chat.first_name} -1 социальный кредит!")
+        bot.send_message(message.chat.id, f"{message.chat.first_name} -1 социальный кредит!")
 
 
 @bot.message_handler(content_types=["sticker"])
