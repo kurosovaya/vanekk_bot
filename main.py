@@ -6,10 +6,16 @@ import os
 import time
 import markovify
 import super_secret_code
+import pymongo
 
 TOKEN = os.environ["TOKEN"]
 bot = telebot.AsyncTeleBot(TOKEN)
 server = Flask(__name__)
+
+
+client = pymongo.MongoClient(
+    "mongodb+srv://vanekkk:vanekkk321@vanekkkcluster.j9smh.mongodb.net/vanekkk?retryWrites=true&w=majority")
+db = client.vanekkk
 
 prohibited_stickers = ("AgADDgADxk5iIA",)
 bad_sticker = "CAACAgIAAxkBAANFYVighWF44_O1hkQlo_8QJSnYKJUAAg4AA8ZOYiAVktAJXEArfiEE"
@@ -65,7 +71,8 @@ def send_text(message: Message):
         bot.send_message(message.chat.id, "Какой же ты еблан")
     elif _a.popitem()[1](message.text):
         bot.delete_message(message.chat.id, message.message_id)
-        bot.send_message(message.chat.id, f"{message.chat.first_name} -1 социальный кредит!")
+        db.social_credit.update_one({"user_id": message.from_user.id}, {"$inc": {"social_credit": -1}}, upsert=True)
+        bot.send_message(message.chat.id, f"{message.chat.username} -1 социальный кредит!")
 
 
 @bot.message_handler(content_types=["sticker"])
