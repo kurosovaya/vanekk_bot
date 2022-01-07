@@ -79,9 +79,10 @@ def send_text(message: Message):
         bot.send_message(message.chat.id, "Какой же ты еблан")
     elif _a.popitem()[1](message.text):
         bot.delete_message(message.chat.id, message.message_id)
-        db.social_credit.update_one({"user_id": message.from_user.id, "user_name": message.from_user.username},
-                                    {"$inc": {"social_credit": -1}}, upsert=True)
-        bot.send_message(message.chat.id, f"{message.from_user.username} -1 социальный кредит!")
+        db.social_credit.update_one({"user_id": message.from_user.id},
+                                    {"$inc": {"social_credit": -1},
+                                     "$set": {"user_name": message.from_user.first_name}}, upsert=True)
+        bot.send_message(message.chat.id, f"{message.from_user.first_name} -1 социальный кредит!")
 
 
 @bot.message_handler(content_types=["sticker"])
