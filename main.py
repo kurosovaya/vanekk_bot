@@ -53,6 +53,14 @@ def reply_suck(message):
     bot.send_message(message.chat.id, "Стикеры с Дзюбой запрещенны!")
 
 
+@bot.message_handler(commands=["statistic_show"])
+def show_stats(message):
+    output = ""
+    for doc in db.social_credit.find().sort("social_credit", pymongo.ASCENDING):
+        output += f"{doc['user_name']}: {doc['social_credit']}\n"
+    bot.send_message(message.chat.id, output)
+
+
 @bot.message_handler(commands=["make_sentence"])
 def make_sentence(message):
     txt = None
@@ -71,7 +79,8 @@ def send_text(message: Message):
         bot.send_message(message.chat.id, "Какой же ты еблан")
     elif _a.popitem()[1](message.text):
         bot.delete_message(message.chat.id, message.message_id)
-        db.social_credit.update_one({"user_id": message.from_user.id}, {"$inc": {"social_credit": -1}}, upsert=True)
+        db.social_credit.update_one({"user_id": message.from_user.id, "user_name": message.chat.username},
+                                    {"$inc": {"social_credit": -1}}, upsert=True)
         bot.send_message(message.chat.id, f"{message.chat.username} -1 социальный кредит!")
 
 
